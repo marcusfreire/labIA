@@ -1,0 +1,38 @@
+EVD
+set.seed(20)
+M = matrix(rnorm(9),3,3)
+#Matriz Simétrica
+> Y = t(M) %*% M
+# Decomposição de AutoValores
+EVD = eigen(Y)
+#AutoValores
+lambda = EVD$values
+#AutoVetores
+U = EVD$vectors
+
+SDV
+
+set.seed(20)
+M = matrix(rnorm(9),3,3)
+#Matriz Simétrica
+> Y = t(M) %*% M
+# Decomposição de valores singulares
+SVD = svd(Y)
+# Orthornomal de U
+t(U) %*% U
+# Ortornormal de V
+t(V) %*% V
+# Y é igual U D V'
+U %*% diag(SDV$d) %*% t(V)
+
+
+# Sabemos que, se U= t(U) %*% U, então Y = U %*% diag(lambda) %*% t(U)
+
+
+M=matrix(c(1,-2,-3,-2,3,-1,3,-1,2),3,3)
+#Matriz inversa
+Mi=solve(M)
+#AutoValores
+eigen(M)$values
+#AutoVetores
+eigen(M)$vectors

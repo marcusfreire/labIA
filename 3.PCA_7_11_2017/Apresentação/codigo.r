@@ -1,0 +1,51 @@
+#Apresentação
+seed=read.table("seeds_dataset.txt",sep="\t",row.names=NULL,header=T)
+
+seed.center=scale(seed[,1:7])
+
+seed.pca=prcomp(seed.center)
+summary(seed.pca)
+
+par(mfrow=c(2,2))
+
+plot(seed[,1:2], main="Média X=14.85 e Y=14.56")
+abline(h=mean(seed[,2],col = "red"))
+abline(v=mean(seed[,1],col = "red"))
+
+plot(seed.center[,1:2], main="Média X=0 e Y=0")
+abline(h=mean(seed.center[,2],col = "red"))
+abline(v=mean(seed[,1],col = "red"))
+
+
+
+library(FactoMineR)
+
+# nice PCA
+seed_pca = PCA(seed.center, graph = FALSE)
+
+# Correlação entre Variáveis e PCs
+round(seed_pca$var$coord[,1:2], 4)
+
+# Grafico Circular de Correlações
+# Quanto mais perto uma seta é a circunferência do círculo, maior será a sua representação nos eixos indicados.
+plot(seed_pca, choix = "var")
+
+# Grafico dos individuos
+plot(seed_pca, choix = "ind")
+
+#Contribuição dos objetos sobre os PCs
+#As contribuições (em porcentagem) refletem a influência que cada objeto tem sobre a formação dos PCs.
+#Se todos os objetos tinham a mesma contribuição em cada PC, eles contribuiriam com um valor de 4,16 = 100/24
+
+print(round(seed_pca$ind$contrib[,1:2], 3),print.gap = 3)
+
+print(round(seed_pca$ind$coord[,1:2], 3),print.gap = 3)
+
+#Plotar os individuos com cores direfentes
+plot(seed_pca$ind$coord[1:70,1:2],col="red",lwd=10,asp=2)
+par(new=TRUE)
+plot(seed_pca$ind$coord[71:140,1:2],col="blue",lwd=10,asp=2)
+par(new=TRUE)
+plot(seed_pca$ind$coord[141:210,1:2],col="black",lwd=10,asp=2)
+
+
