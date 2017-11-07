@@ -1,3 +1,9 @@
+#Configuração inicial Git computador do Lab
+#git config --global user.name "Marcus Freire"
+#git config --global user.email marcusfreire@dcc.ufba.br
+
+
+
 set.seed(123456)
 print(rnorm(10,mean=0,sd=1))
 a=1
@@ -16,8 +22,7 @@ for (a in 1:5){
 vet=1:5
 vet2=98:100
 for (a in c(1:5,vet2)){
-cat(a,"\n") 
+cat(a,"\n")
 }
 
 m=matrix(1:10,nrow=5,ncol=2,byrow=T)
-
