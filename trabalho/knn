@@ -39,7 +39,7 @@ for(ki in 1:k){
 		}
 
 		indice=sort.list(distancia,decreasing=F)[1]
-		cat("Valor Index: ",indice," valorRotulo ",dados$trainigRotulo[indice],"\n")
+		#cat("Valor Index: ",indice," valorRotulo ",dados$trainigRotulo[indice],"\n")
 		rotulo[ki]=levels(dados$trainigRotulo[indice])
 	}
 	rotulo

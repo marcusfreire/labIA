@@ -1,65 +1,69 @@
-  sinal=function(x){
+sinal=function(x){
     if(x>0){
       saida=1
     }else{
       saida=-1
     }
     saida
-  }
+}
 
-  num_max_cont=10000
-  rna=function(dados){
-    rotulo=c()
-    pesos=c()
-    pesos=rnorm(ncol(dados$trainig))
-    taxa_aprendizado=0.4
-    limiar=0.5
-    cont=0
-    sucesso=F
-    while (!sucesso){
-      erro=F
-      for(i in 1:nrow(dados$trainig)){
-        u=0
-        #u=somatorio(Xi*Wi)+teta*rotulo
-        for(j in 1:ncol(dados$trainig)){
-          u=sum(u,pesos[j]*dados$trainig[i,j])
-        }
-        u=sum(u,limiar)
-        rotulo[i]=sinal(u)
-        if(rotulo[i]!=sinal(dados$trainigRotulo[i])){
-          erro_aux=sinal(dados$trainigRotulo[i])-rotulo[i]
-          #ajuste dos pesos
-          for(j in 1:ncol(dados$trainig)){
-            pesos[j]=pesos[j]+(taxa_aprendizado*erro_aux*dados$trainig[i,j])
-          }
-          limiar =limiar + (taxa_aprendizado*erro_aux)
-          erro=T
-        }
+num_max_cont=1000
+rna=function(dados){
+  rotulo=c()
+  pesos=c()
+  pesos=rnorm(ncol(dados$trainig))
+  taxa_aprendizado=0.4
+  limiar=0.5
+  cont=0
+  sucesso=F
+  while (!sucesso){
+    erro=F
+    for(i in 1:nrow(dados$trainig)){
+      u=0
+      #u=somatorio(Xi*Wi)+teta*rotulo
+      for(j in 1:ncol(dados$trainig)){
+        u=sum(u,pesos[j]*dados$trainig[i,j])
       }
-      cont=sum(cont,1)
-      if (erro==F || cont==num_max_cont){
-        sucesso=T
-        cat("Cont: ",cont,"\n")
+      u=sum(u,limiar)
+      rotulo[i]=sinal(u)
+      if(rotulo[i]!=sinal(dados$trainigRotulo[i])){
+        erro_aux=sinal(dados$trainigRotulo[i])-rotulo[i]
+        #ajuste dos pesos
+        for(j in 1:ncol(dados$trainig)){
+          pesos[j]=pesos[j]+(taxa_aprendizado*erro_aux*dados$trainig[i,j])
+        }
+        limiar =limiar + (taxa_aprendizado*erro_aux)
+        erro=T
       }
     }
-    list(
-      pesos,
-      limiar,
-      rotulo
-    )
+    cont=sum(cont,1)
+    if (erro==F || cont==num_max_cont){
+      sucesso=T
+      cat("Cont: ",cont,"\n")
+    }
   }
-a=rna(dados)
-a[[3]][which(a[[3]]==-1)]=0
-sum(a[[3]]==dados$trainigRotulo)
+  list(
+    pesos,
+    limiar,
+    rotulo
+  )
+}
 
-teste=function(dados,){
-for(i in 1:nrow(dados$trainig)){
+teste=function(dados,a){
+rotulo=c()
+limiar=a[[2]]
+for(i in 1:nrow(dados$test)){
   u=0
   #u=somatorio(Xi*Wi)+teta*rotulo
   for(j in 1:ncol(dados$trainig)){
-    u=sum(u,pesos[j]*dados$trainig[i,j])
+    u=sum(u,a[[1]][j]*dados$trainig[i,j])
   }
   u=sum(u,limiar)
-  rotulo[i]=sinal(u)
-
+  if(sinal(u)==1){
+    rotulo[i]=1
+  }else{
+    rotulo[i]=0
+  }
+  }
+  rotulo
 }
