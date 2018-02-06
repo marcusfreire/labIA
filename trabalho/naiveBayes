@@ -1,0 +1,20 @@
+naive.bayes<-function(dados,k=1){
+	niveis<-levels(as.factor(dados$trainigRotulo))
+  p.class<-c()
+	tamanho<-length(dados$trainigRotulo)
+	for(i in 1:length(niveis)){
+		p.class[i]<-length(which(dados$trainigRotulo==niveis[i]))/tamanho
+		index<-which(dados$trainigRotulo==niveis[i])
+		for(j in 1:ncol(dados$trainig)){
+			result<-table(dados$trainig[index,j])/length(index)
+			result<-result[which(names(result)==dados$test[k,j])]
+			p.class[i]<-p.class[i]*result
+      cat("Para i:",i," j:",j," p.class: ",p.class[i], "result: ",result,"\n")
+		}
+	}
+
+  resultado<-p.class/sum(p.class)
+	names(resultado)<-niveis
+
+	resultado
+}

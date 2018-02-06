@@ -1,0 +1,152 @@
+#Lendo a Base
+titanic=read.csv("dataset/train.csv",head=T)
+head(titanic)
+titanic=titanic[-1]
+
+
+# Convertendo os inteiros, para a classe factor, para saber os grupos
+# Os fatores são uma classe especial de vetores, que definem variáveis categóricas de classificação,
+#como os tratamentos em um experimento fatorial, ou categorias em uma tabela de contingência.
+titanic[,2]=as.factor(titanic[,2])
+titanic[,3]=as.factor(titanic[,3])
+titanic[,7]=as.factor(titanic[,7])
+titanic[,8]=as.factor(titanic[,8])
+titanic[,10]=as.factor(titanic[,10])
+
+#Brincando com os dados
+#Saber quais pessoas do sexo=Feminino sobreviveram.
+which((titanic$Sex=="female") & (titanic$Survived==1))
+
+head(titanic[which((titanic$Sex=="female") & (titanic$Survived==1)),])
+
+#Qual a porcentagem de sobrevivencia do sexo:
+#feminino
+Feminino_Viva=sum((titanic$Sex=="female") & (titanic$Survived==1))
+Total_Feminino=sum(titanic$Sex=="female")
+Feminino_Viva/Total_Feminino
+
+#Masculino
+Homem_vivo=sum((titanic$Sex=="male") & (titanic$Survived==1))
+Total_homem=sum(titanic$Sex=="male")
+Homem_vivo/Total_homem
+
+#Quem dizem que dinheiro não conta até no desespero
+# Quem pagou os tickets mais caros
+sum(titanic$Fare>=100)
+# E desses quem Sobreviveu?
+sum(titanic$Fare>=100 & titanic$Survived==1)
+
+#Resumo do Banco
+summary(titanic)
+str(titanic)
+
+#Ticket repetidos
+summary(titanic$Ticket)
+#1601        347082      CA. 2343       3101295        347088
+# 7             7             7             6             6
+#Esses Ticket se repetiram muito, poderia ser repetição de dados?
+titanic[which(titanic$Ticket==1601),]
+
+#Possivel resposta: Não, pois pode pertencer a uma família Ex. os Carter:
+titanic[which(titanic$Cabin== "B96 B98"),]
+#Todos com as mesmas cabines, Tickets entre outros atributos.
+# O algoritmo Knn  iria se dar bem nessa família, pois todos sobreviveram
+# Entretanto, outra familia, pode confundir
+
+
+
+
+#Possiveis Outliers
+boxplot(titanic$Fare)
+
+
+boxplot(titanic$SibSp)
+titanic[which(titanic$SibSp==8),]
+
+
+a =titanic[which(titanic[,11]!=""),11]
+#Porcentagem de quem tem o número da cabine registrado
+length(a)/length(titanic[,1])
+
+#Verificar esse tipo de caso, pois as cabines são iguais,pertencem a mesma família? Depois verificar isso!
+b=titanic[298,]
+c=titanic[306,]
+
+
+#Tratando as idades como grupo, para o naive bayes
+temp=as.vector(titanic$Age)
+tempj=as.vector(titanic$Age)
+tempa=as.vector(titanic$Age)
+tempi=as.vector(titanic$Age)
+
+tempj[which(tempj<=20)]="J"
+tempa[which(tempa>20 & tempa<=50)]="A"
+tempi[which(tempi>50)]="I"
+
+temp[which(tempj=="J")]="J"
+temp[which(tempa=="A")]="A"
+temp[which(tempi=="I")]="I"
+temp[which(is.na(temp))]="INDEF"
+temp=as.factor(temp)
+titanic$Age=temp
+
+#Preparando para o rna
+titanic=read.csv("dataset/train.csv",head=T)
+titanic=titanic[-1]
+titanic=titanic[-3]
+
+temp=as.vector(titanic$Sex)
+temp[which(temp=="male")]="0"
+temp[which(temp=="female")]="1"
+titanic$Sex=as.integer(temp)
+titanic$Embarked=as.integer(titanic$Embarked)
+
+titanic$Ticket=as.numeric(titanic$Ticket)
+titanic$Ticket=scale(titanic$Ticket)
+
+titanic$Cabin=as.numeric(titanic$Cabin)
+titanic$Cabin=scale(titanic$Cabin)
+
+titanic=titanic[-which(is.na(titanic$Age)),]
+
+
+#RASCUNHO -------- heheheheh
+tamanho = c(1:length(a))
+cont=0
+for(i in tamanho){
+	for(j in (i+1):length(a)){
+		if(a[i]==a[j]){
+			cat("i= ",i," j= ",j,"\n",tamanho,"\n")
+			tamanho = tamanho[-(j-cont)]
+			cont=sum(cont,1)
+		}
+	}
+}
+
+tamanho = c(1:length(a))
+for(i in tamanho){
+	cat("Cabine ",a[i],"\n")
+	index=which(titanic[,11]==a[i])
+	cat("Nome: ",titanic[index,4],"Cabine: ",titanic[index,11],"sobreviveu: ",titanic[index,2],"sex: ",titanic[index,5],"\n")
+	cat("----------Fim [ ",a[i]," ] ----------","\n")
+}
+
+#
+
+
+tamanho = c(1:5)
+a=c(1,2,2,2,3)
+cont=0
+for(i in tamanho){
+	for(j in (i+1):length(a)){
+		if(a[i]==a[j]){
+			cat("i= ",i," j= ",j,"\n")
+			tamanho = tamanho[-(j-cont)]
+			cont=sum(cont,1)
+		}
+	}
+}
+
+for(i in tamanho){
+
+}

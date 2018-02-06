@@ -1,0 +1,32 @@
+houldout=function(dados,colunaRotulo){
+res=c()
+tamanho = nrow(dados)
+p=floor(tamanho*(2/3))
+cat("Tamanho :",tamanho,"p: ",p,"\n")
+	rotulo=dados[,colunaRotulo]
+	dados=dados[,-colunaRotulo]
+	list(
+		trainig=dados[1:p,],
+		trainigRotulo=rotulo[1:p],
+		test=dados[(p+1):tamanho,],
+		testRotulo=rotulo[(p+1):tamanho]
+	)
+}
+houldout(titanic,2)
+
+random=function(dados,colunaRotulo){
+res=c()
+tamanho = nrow(dados)
+p=floor(tamanho*(2/3))
+cat("Tamanho :",tamanho,"p: ",p,"\n")
+	rotulo=dados[,colunaRotulo]
+	dados=dados[,-colunaRotulo]
+	rand=sample(1:tamanho,tamanho)
+	list(
+		trainig=dados[rand[1:p],],
+		trainigRotulo=rotulo[rand[1:p]],
+		test=dados[rand[(p+1):tamanho],],
+		testRotulo=rotulo[rand[(p+1):tamanho]]
+	)
+}
+random(titanic,2)

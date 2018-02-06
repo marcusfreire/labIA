@@ -1,0 +1,46 @@
+
+dist=function(x,y){
+	result=0
+	for(j in 1:ncol(x)){
+		#cat("valor de trainig ",x[,j],"Valor de Teste ",y[,j],"\n")
+		if(is.numeric(x[,j])){
+			#cat("Coluna ",j," eh numerico\n")
+			result=result+sqrt(sum((x[,j]-y[,j])^2))
+		}else{
+			#cat("Coluna ",j," Não eh numerico")
+			if(x[,j]==y[,j]){
+					#cat(" -- Igual \n")
+				#result=0
+			}else{
+				#cat(" -- Diferente\n")
+				result=result+1
+			}
+		}
+	}
+	result
+}
+
+
+
+knn=function(dados,k=0){
+	distancia=c()
+	rotulo=c()
+	if (!k){
+		k=nrow(dados$test)
+	}else{
+		if (k >= nrow(dados$test)){
+			stop("O valor de K é maior que o conjunto de testes")
+		}
+	}
+
+for(ki in 1:k){
+		for(i in 1:nrow(dados$trainig)){
+			distancia[i]=dist(dados$trainig[i,],dados$test[ki,])
+		}
+
+		indice=sort.list(distancia,decreasing=F)[1]
+		cat("Valor Index: ",indice," valorRotulo ",dados$trainigRotulo[indice],"\n")
+		rotulo[ki]=levels(dados$trainigRotulo[indice])
+	}
+	rotulo
+}
