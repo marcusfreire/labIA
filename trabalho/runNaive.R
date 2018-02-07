@@ -1,10 +1,8 @@
+source("lerDados")
 source("naiveBayes")
 source("amostragem")
-set.seed(123456)
-#-----------------Tratando Base
-titanic=read.csv("dataset/train.csv",head=T)
-titanic=titanic[-1]
 
+#-----------------Tratando Base ---- Para Naive
 titanic=titanic[-which(titanic$SibSp>2),]
 titanic=titanic[-which(titanic$Age>60),]
 titanic=titanic[-which(titanic$Fare>47),]

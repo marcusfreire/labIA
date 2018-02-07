@@ -1,6 +1,4 @@
-titanic=read.csv("dataset/train.csv",head=T)
-titanic=titanic[-1]
-
+source("lerDados")
 source("knn")
 source("amostragem")
 
@@ -10,7 +8,6 @@ source("amostragem")
 #Para todos os testes Nº Aleatórios:
 # 738638014 71%
 
-set.seed(1946827350)
 dados=random(titanic,1)
 cat("Executando Knn, para os 20 primeiros casos de teste\n")
 rotulo=c()
