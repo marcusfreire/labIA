@@ -1,6 +1,6 @@
 source("lerDados")
-source("knn")
 source("amostragem")
+source("knn")
 
 #Para um teste de 20 amostras
 #set.seed(124578) # 75%

@@ -2,7 +2,7 @@ houldout=function(dados,colunaRotulo){
 res=c()
 tamanho = nrow(dados)
 p=floor(tamanho*(2/3))
-cat("Tamanho :",tamanho,"p: ",p,"\n")
+#cat("Tamanho :",tamanho,"p: ",p,"\n")
 	rotulo=dados[,colunaRotulo]
 	dados=dados[,-colunaRotulo]
 	list(
@@ -18,7 +18,7 @@ random=function(dados,colunaRotulo){
 res=c()
 tamanho = nrow(dados)
 p=floor(tamanho*(2/3))
-cat("Tamanho :",tamanho,"p: ",p,"\n")
+#cat("Tamanho :",tamanho,"p: ",p,"\n")
 	rotulo=dados[,colunaRotulo]
 	dados=dados[,-colunaRotulo]
 	rand=sample(1:tamanho,tamanho)

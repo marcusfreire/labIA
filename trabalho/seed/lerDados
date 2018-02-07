@@ -1,0 +1,2 @@
+titanic=read.csv("../dataset/train.csv",head=T)
+titanic=titanic[-1]

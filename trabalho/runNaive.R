@@ -2,6 +2,9 @@ source("lerDados")
 source("naiveBayes")
 source("amostragem")
 
+#set.seed(62564662) # 75.11%
+#set.seed(13069490) # 77.333%
+
 #-----------------Tratando Base ---- Para Naive
 titanic=titanic[-which(titanic$SibSp>2),]
 titanic=titanic[-which(titanic$Age>60),]
@@ -30,7 +33,7 @@ titanic=titanic[,-3]
 titanic=titanic[,-7]
 titanic=titanic[,-8]
 #---FIM-----------Tratando Base
-
+set.seed(1559)
 dados=random(titanic,1)
 naive.bayes(dados,1)
 
