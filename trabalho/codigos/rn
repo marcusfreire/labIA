@@ -7,7 +7,7 @@ sinal=function(x){
     saida
 }
 
-num_max_cont=10000
+num_max_cont=100
 rna=function(dados){
   rotulo=c()
   pesos=c()

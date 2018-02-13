@@ -3,9 +3,23 @@ source("../amostragem")
 source("../knn")
 #Para um teste de 20 amostras
 #set.seed(124578) # 75%
+#Chave Escolhida:  92056075, modelo KNN com acertivas de:  0.7845118
+#Chave Escolhida:  40601223, modelo KNN com acertivas de:  0.8148148
 #set.seed(1946827350) # 90% acertos
 #Para todos os testes Nº Aleatórios:
 # 738638014 71%
+
+#-----------------Tratando Base ---- Para KNN --
+titanic=titanic[-3]
+
+temp=as.numeric(titanic$Age)
+temp=abs(na.spline(temp))
+temp=scale(temp)
+titanic$Age=temp[,1]
+
+temp=as.numeric(titanic$Fare)
+temp=scale(temp)
+titanic$Fare=temp[,1]
 
 #Procurando melhor amostra aleatória para o método knn
 amostra=c()

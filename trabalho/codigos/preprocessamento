@@ -1,7 +1,4 @@
-#Lendo a Base
-titanic=read.csv("dataset/train.csv",head=T)
-head(titanic)
-titanic=titanic[-1]
+source("lerDados")
 
 
 # Convertendo os inteiros, para a classe factor, para saber os grupos
@@ -52,9 +49,6 @@ titanic[which(titanic$Cabin== "B96 B98"),]
 #Todos com as mesmas cabines, Tickets entre outros atributos.
 # O algoritmo Knn  iria se dar bem nessa família, pois todos sobreviveram
 # Entretanto, outra familia, pode confundir
-
-
-
 
 #Possiveis Outliers
 boxplot(titanic$Fare)
@@ -108,45 +102,3 @@ titanic$Cabin=as.numeric(titanic$Cabin)
 titanic$Cabin=scale(titanic$Cabin)
 
 titanic=titanic[-which(is.na(titanic$Age)),]
-
-
-#RASCUNHO -------- heheheheh
-tamanho = c(1:length(a))
-cont=0
-for(i in tamanho){
-	for(j in (i+1):length(a)){
-		if(a[i]==a[j]){
-			cat("i= ",i," j= ",j,"\n",tamanho,"\n")
-			tamanho = tamanho[-(j-cont)]
-			cont=sum(cont,1)
-		}
-	}
-}
-
-tamanho = c(1:length(a))
-for(i in tamanho){
-	cat("Cabine ",a[i],"\n")
-	index=which(titanic[,11]==a[i])
-	cat("Nome: ",titanic[index,4],"Cabine: ",titanic[index,11],"sobreviveu: ",titanic[index,2],"sex: ",titanic[index,5],"\n")
-	cat("----------Fim [ ",a[i]," ] ----------","\n")
-}
-
-#
-
-
-tamanho = c(1:5)
-a=c(1,2,2,2,3)
-cont=0
-for(i in tamanho){
-	for(j in (i+1):length(a)){
-		if(a[i]==a[j]){
-			cat("i= ",i," j= ",j,"\n")
-			tamanho = tamanho[-(j-cont)]
-			cont=sum(cont,1)
-		}
-	}
-}
-
-for(i in tamanho){
-
-}

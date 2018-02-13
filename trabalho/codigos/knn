@@ -10,10 +10,10 @@ dist=function(x,y){
 			#cat("Coluna ",j," Não eh numerico")
 			if(x[,j]==y[,j]){
 					#cat(" -- Igual \n")
-				#result=0
+					#result=0
 			}else{
 				#cat(" -- Diferente\n")
-				result=result+1
+				result=result+10
 			}
 		}
 	}
